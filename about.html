@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="http://127.0.0.1:5500/contact.html">
+  <link rel="stylesheet" href="http://127.0.0.1:5500/index.html">
+  <title>Temporadas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background:rgb(20, 20, 20);
+      color: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .season-buttons {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+      gap: 10px;
+    }
+    button {
+      background-color: #333;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #ff6b6b;
+    }
+    button.active {
+      background-color: #ff6b6b;
+    }
+    .episodes-list {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: rgba(255,255,255,0.02);
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .episode {
+      padding: 10px;
+      border-bottom: 1px solid #ffffff;
+    }
+    .episode:last-child {
+      border-bottom: none;
+    }
+    .episode a {
+      color: #ff6b6b;
+      text-decoration: none;
+      font-weight: bold;
+      display: block;
+      width: 100%;
+    }
+    .episode a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Temporadas</h1>
+
+  <div class="season-buttons">
+   
+    <button data-season="1">Temporada 1</button>
+    <button data-season="2">Temporada 2</button>
+    <button data-season="3">Temporada 3</button>
+  </div>
+
+  <div class="episodes-list" id="episodes-list"></div>
+    <a class="episode" href="contact.html"></a>
+  <script>
+    
+    const seasons = {
+      1: [
+        'Episodio 1 - El comienzo',
+        'Episodio 2 - La aventura continúa',
+        'Episodio 3 - El misterio se revela',
+      ],
+      2: [
+        'Episodio 1 - Nuevos desafíos',
+        'Episodio 2 - El enemigo oculto',
+        'Episodio 3 - La batalla final',
+      ],
+      3: [
+        'Episodio 1 - El regreso',
+        'Episodio 2 - La alianza',
+        'Episodio 3 - El destino',
+      ],
+         
+    };
+      
+     const buttons = document.querySelectorAll('.season-buttons button');
+    const episodesList = document.getElementById('episodes-list');
+
+    function showSeason(season) {
+      episodesList.innerHTML = '';
+      seasons[season].forEach((episode, index) => {
+        const div = document.createElement('div');
+        div.classList.add('episode');
+
+        const a = document.createElement('a');
+        a.href = `http://127.0.0.1:5500/contact.html`;
+        a.textContent = episode;
+
+        div.appendChild(a);
+        episodesList.appendChild(div);
+      });
+      buttons.forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`button[data-season="${season}"]`).classList.add('active');
+    }
+
+    window.onload = () => {
+      showSeason(1);
+    };
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const season = button.getAttribute('data-season');
+        showSeason(season);
+      });
+    });
+  </script>
+
+</body>
+</html>
